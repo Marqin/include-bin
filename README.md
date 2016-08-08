@@ -17,8 +17,11 @@ compatible even with C++98 standard.
 ## Usage
 
 ```bash
-./include-bin INFILE OUTFILE
+./include-bin [infile [outfile]]
 ```
+If there is no outfile argument it will print on stdout. If there is also no
+infile argument it will read from stdin. In latter case array name will be
+"data".
 
 Example:
 ```bash
