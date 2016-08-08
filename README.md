@@ -1,6 +1,7 @@
 # include-bin
 
 C++ program that generates C arrays from binary data.
+It's output is similar to `xxd -i`.
 
 Extra features:
 
