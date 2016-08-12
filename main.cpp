@@ -23,22 +23,28 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <algorithm>
 
-bool good_char( char ch ) {
-  if( ('A' <= ch && ch <= 'Z') || ('a' <= ch && ch <= 'z') ) {
-    return true;
+char sanitize_char( char ch ) {
+  if( ('A' <= ch && ch <= 'Z') ||
+      ('a' <= ch && ch <= 'z') ||
+      ('0' <= ch && ch <= '9') ) {
+    return ch;
   }
-  return false;
+  return '_';
 }
 
-std::string sanitize( std::string str ) {
-  std::string sane_str = str;
-  for( size_t i = 0; i < sane_str.length(); i++ ) {
-    if( ! good_char(str[i]) ) {
-      sane_str[i] = '_';
-    }
+std::string sanitize( std::string s ) {
+  if( s.length() == 0 ) {
+    return "data";
   }
-  return sane_str;
+
+  std::transform( s.begin(), s.end(), s.begin(), sanitize_char );
+  if( '0' <= s[0] && s[0] <= '9' ) {
+    s = "_" + s;
+  }
+
+  return s;
 }
 
 void include_bin( std::istream& in, std::ostream& out, std::string name ) {
